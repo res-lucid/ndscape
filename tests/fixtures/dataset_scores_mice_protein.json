@@ -1,0 +1,12 @@
+{
+  "n_trees": 15000,
+  "n_classes": 8,
+  "score_sorted_hash": "1034e91088b3924925a2888be741e554",
+  "logloss_sorted_hash": "45d4b5840e1a86142e3589fd8041c53f",
+  "modelvar_mean": 0.00108977,
+  "modelvar_min": 0.00072744,
+  "modelvar_max": 0.00178681,
+  "score_min": 0.84876543,
+  "score_max": 0.99691358,
+  "score_mean": 0.96414074
+}

@@ -1,0 +1,81 @@
+# Artifact manifest for nested-dichotomy tree-space analysis.
+#
+# Each entry defines one artifact saved to cache_nd/.
+# Run: python scripts/make_artifacts.py --all
+#      python scripts/make_artifacts.py --target art_1_C6_N945_s0_d2
+#
+# Fields
+# ------
+# name        : unique artifact identifier (matches cache filename stem)
+# C           : number of classes
+# N           : number of trees sampled (ignored when exhaustive: true)
+# seed        : random seed for MDS and KMeans
+# dim         : MDS embedding dimension
+# exhaustive  : true when all trees are enumerated (C <= 7)
+# description : plain-English note for readers
+
+artifacts:
+
+  - name: art_1_C4_N15_s0_d2
+    C: 4
+    N: 15
+    seed: 0
+    dim: 2
+    exhaustive: true
+    description: "4-class full enumeration (15 trees)"
+
+  - name: art_1_C5_N105_s0_d2
+    C: 5
+    N: 105
+    seed: 0
+    dim: 2
+    exhaustive: true
+    description: "5-class full enumeration (105 trees)"
+
+  - name: art_1_C6_N945_s0_d2
+    C: 6
+    N: 945
+    seed: 0
+    dim: 2
+    exhaustive: true
+    description: "6-class full enumeration (945 trees) -- glass_identification"
+
+  - name: art_1_C7_N10395_s0_d2
+    C: 7
+    N: 10395
+    seed: 0
+    dim: 2
+    exhaustive: true
+    description: "7-class full enumeration (10395 trees) -- steel_plates_faults"
+
+  - name: art_1_C8_N15000_s0_d2
+    C: 8
+    N: 15000
+    seed: 0
+    dim: 2
+    exhaustive: false
+    description: "8-class sampled (15000 trees) -- mice_protein"
+
+  - name: art_1_C9_N15000_s0_d2
+    C: 9
+    N: 15000
+    seed: 0
+    dim: 2
+    exhaustive: false
+    description: "9-class sampled (15000 trees) -- urban_land_cover"
+
+  - name: art_1_C10_N15000_s0_d2
+    C: 10
+    N: 15000
+    seed: 0
+    dim: 2
+    exhaustive: false
+    description: "10-class sampled (15000 trees) -- pen_based_digits"
+
+  - name: art_1_C19_N15000_s0_d2
+    C: 19
+    N: 15000
+    seed: 0
+    dim: 2
+    exhaustive: false
+    description: "19-class sampled (15000 trees) -- soybean_large_122"

@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ndscape"
+version = "0.1.1"
+description = "Fit, score, and embed nested-dichotomy (ND) trees for multi-class classification."
+readme = "ndscape/README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    {name = "Maxwell Dix-Matthews"},
+]
+keywords = ["nested-dichotomy", "multi-class", "classification", "scikit-learn"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scikit-learn>=1.3",
+    "joblib>=1.2",
+]
+
+[project.optional-dependencies]
+spatial = ["esda>=2.6", "libpysal>=4.10"]
+plot = ["matplotlib>=3.5", "bokeh>=3.0"]
+
+[project.urls]
+Repository = "https://github.com/res-lucid/ndscape"
+
+[tool.setuptools.packages.find]
+include = ["ndscape*"]

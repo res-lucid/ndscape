@@ -1,0 +1,31 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Nested-Dichotomy Tree-Space Embedding"
+abstract: >
+  Code for scoring nested-dichotomy (ND) tree structures on
+  multi-class datasets, embedding the tree space via metric MDS, and running
+  a bias-variance simulation over the space.
+authors:
+  - family-names: "Dix-Matthews"
+    given-names: "Maxwell"
+    orcid: "https://orcid.org/0009-0003-1575-0744"
+  - family-names: "Hodkiewicz"
+    given-names: "Melinda"
+    orcid: "https://orcid.org/0000-0002-7336-3932"
+  - family-names: "Polpo"
+    given-names: "Adriano"
+    orcid: "https://orcid.org/0000-0002-5959-1808"
+
+repository-code: "https://github.com/res-lucid/ndscape"
+license: MIT
+doi: "10.5281/zenodo.20456943"
+version: "1.0.0"
+date-released: "2026-06-17"
+keywords:
+  - nested-dichotomy
+  - tree-space
+  - bias-variance
+  - MDS
+  - spatial-autocorrelation
+  - machine-learning

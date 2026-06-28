@@ -1,0 +1,55 @@
+# virtual environments
+.venv/
+.venv_linux/
+venv/
+venv_linux/
+
+# IDE
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+numba_cache/
+
+# packaging artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+*.whl
+
+# datasets — download separately via Zenodo (see README)
+data/
+zenodo/data/
+
+# zenodo/ subdirs downloaded or generated (not committed)
+zenodo/raw_simulation_results/
+zenodo/raw_simulation_results_dt/
+zenodo/simulation_scores/
+zenodo/simulation_scores_dt/
+zenodo/tree_metrics/
+zenodo/*.zip
+
+# generated outputs — reproduced by running the scripts
+real-data-bias-analysis/
+bias-analysis/
+paper_outputs/
+cache_nd/
+
+# stale / superseded files
+all_sims.csv
+all_sims_trimmed.csv
+ndscape_repo.7z
+# optional JSON conversion of simulation_configs.csv
+simulation_configs.json
+zenodo/simulation_configs.json
+
+# temp file written by reproduce.py --steps sim/moran --classes ...
+_selected_sims.csv
+
+# credentials — never commit these
+.env
+.pypirc
+*.pypirc
