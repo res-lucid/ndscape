@@ -1,46 +1,66 @@
-# ndscape: Nested-Dichotomy Tree-Space Embedding
+# ndscape: Nested Dichotomy Tree-Space Embedding
 
-Code for the paper. Embeds the space of nested-dichotomy (ND) structures via depth-weighted tokenisation and metric MDS, then maps bias, variance, and held-out performance across that space.
+`ndscape` embeds nested dichotomy (ND) tree structures using depth-weighted structural tokens and metric MDS. It can be used as a Python package, and this repository also contains the code needed to reproduce the paper outputs.
+
+An ND represents a multiclass classification problem as a binary tree of class splits.
+
+Archived data and artifacts: doi:10.5281/zenodo.20456943  
 
 ## Installation
 
+For package use:
+
 ```bash
+pip install ndscape
+```
+
+To reproduce the paper outputs, clone the repository and install the pinned requirements:
+```bash
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Versions of `numpy`, `scipy`, and `scikit-learn` are pinned in `requirements.txt`. The MDS coordinates in `cache_nd/` were built with those exact versions; changing them will produce different (but statistically equivalent) coordinates.
+Versions of `numpy`, `scipy`, and `scikit-learn` are pinned in `requirements.txt`. The MDS coordinates in `cache_nd/` were built with those exact versions, so changing numpy, scipy, or scikit-learn can produce slightly different coordinates.
 
-## Quick check (~30 s)
+## How to use this repository
 
-```bash
-pytest tests/
-```
+| Goal | Command |
+|------|---------|
+| Use `ndscape` as a package | `pip install ndscape` |
+| Test the repository install | `pytest tests/` |
+| Recreate paper figures and tables from archived outputs | `python scripts/download_zenodo.py` then `python reproduce.py --paper` |
+| Run the full reproduction pipeline | `python reproduce.py` |
+| Run only selected steps | `python reproduce.py --steps artifacts` |
+| Score a new dataset | `python run_datasets.py --datasets my_dataset` |
 
-To also run the slower integration tests (require pre-built C=6 and C=7 cache files, or rebuild from scratch):
+## Reproduce paper outputs from archived results
 
-```bash
-pytest tests/ -m integration
-```
-
-## Reproduce paper outputs (fast — no re-simulation)
-
-Download the Zenodo deposit first, then regenerate all figures and tables in minutes:
+Download the Zenodo deposit, then regenerate the paper figures and tables without re-running the simulations:
 
 ```bash
 python scripts/download_zenodo.py
 python reproduce.py --paper
 ```
 
-`--paper` runs four scripts in order:
+<details>
+<summary>Scripts run by <code>python reproduce.py --paper</code></summary>
 
-1. `scripts/make_dataset_plots.py --cache zenodo --out paper_outputs/figures` — PDF and interactive HTML embedding maps for all 6 real datasets
-2. `scripts/make_simulation_plots.py --out paper_outputs/figures` — simulation bias/variance/depth PDF maps (Figs 2–5 and appendix)
-3. `scripts/make_ablation_summaries.py` — Moran spatial analysis for the tokeniser / BoW / RF ablation (reads `zenodo/raw_simulation_results/`)
-4. `scripts/make_paper_tables.py --all --out paper_outputs/tables` — all LaTeX tables; uses pre-built scores from `zenodo/simulation_scores/` and `zenodo/simulation_scores_dt/` if present, otherwise recomputes from `zenodo/raw_simulation_results{,_dt}/`
+1. `scripts/make_dataset_plots.py --cache zenodo --out paper_outputs/figures`
+   - PDF and interactive HTML embedding maps for all six real datasets.
+2. `scripts/make_simulation_plots.py --out paper_outputs/figures`
+   - Simulation bias, variance, and depth maps.
+3. `scripts/make_ablation_summaries.py`
+   - Moran spatial analysis for the tokeniser, BoW, and RF ablations.
+4. `scripts/make_paper_tables.py --all --out paper_outputs/tables`
+   - LaTeX tables.
 
-Output lands in `paper_outputs/figures/` and `paper_outputs/tables/`.
+Output is saved to `paper_outputs/figures/` and `paper_outputs/tables/`.
+</details>
 
-## Full reproduction from scratch
+## Full reproduction pipeline
+
+This rebuilds the derived outputs locally, using the archived data and configuration files downloaded into `zenodo/`.
 
 ```bash
 python reproduce.py
@@ -67,15 +87,21 @@ python reproduce.py --steps plots
 
 **Note on step 2:** `run_datasets.py` scores every ND tree on each real dataset and writes xlsx results. These are also available pre-built in `zenodo/tree_metrics/` and are used automatically by `make_dataset_plots.py` and `make_dataset_tables.py` when the xlsx files are absent.
 
-## Real-data tables and figures without re-scoring
+## Using your own data
 
-`make_dataset_plots.py` and `make_dataset_tables.py` fall back to `zenodo/tree_metrics/<dataset>.csv` when the step-2 xlsx files are not present. After running `python scripts/download_zenodo.py`, the `--paper` command produces all real-data figures and tables without running step 2.
+Drop a CSV in `zenodo/data/` with a `y` column (integer or string class labels) and any number of numeric feature columns. A `split` column (`"train"` / `"test"`) is used if present, otherwise a stratified 70/30 split is applied.
+
+```bash
+python run_datasets.py --datasets my_dataset
+```
+
+Output goes to `real-data-bias-analysis/my_dataset/v_my_dataset_lr_cluster_tables.xlsx`.
 
 ## Tests
 
 ```bash
 pytest tests/                  # unit + snapshot tests (fast)
-pytest tests/ -m integration   # integration tests (slow; requires pre-built C=6,7 artifacts)
+pytest tests/ -m integration   # integration tests (slow and requires pre-built C=6,7 artifacts)
 ```
 
 The `tests/fixtures/` directory holds MD5 hashes of the tree lists, tokeniser output, and per-dataset scores.
@@ -112,38 +138,18 @@ Or place CSV files (with a `y` column for the class label) in `zenodo/data/`:
 
 ## Key files
 
-```
+```text
+reproduce.py                          Main reproduction entry point
 core.py                               Tree enumeration, embedding, models, artifact building
-generate_data.py                      Synthetic data generation for the simulation
-run_datasets.py                       Score all trees on each real dataset; write xlsx results
-run_simulations.py                    Bias-variance simulation (numba-accelerated)
-reproduce.py                          Single-command entry point (--paper for fast path)
-
-nd/                                   ND algorithm implementations
-  NestedDichotomy.py                  Core tree data structure and training
-  RandomGeneration.py                 Uniform random tree sampling
-  BBoK.py                             Balanced best-of-K generator
-  BestOfK.py                          Best-of-K wrapper (K=10)
-  ACND.py, NDC.py, RPND.py, CBND.py  Four further construction heuristics
-
-scripts/make_artifacts.py             Build MDS embeddings from configs/artifacts.yml
-scripts/verify_artifacts.py           Check built artifacts against configs/artifacts.yml
-scripts/make_dataset_plots.py                 Embedding PDF + HTML maps per real dataset
-scripts/make_simulation_plots.py      Simulation bias/variance/depth PDF maps
-scripts/moran_simulation_analysis.py  Spatial statistics on simulation results
-scripts/make_dataset_tables.py                LaTeX real-data tables (spatial stats + heuristic placement)
-scripts/make_simulation_tables.py     LaTeX simulation tables
-scripts/make_ablation_summaries.py    Moran analysis for tokeniser/BoW/RF ablations
-scripts/make_ablation_tables.py       LaTeX ablation tables
-scripts/make_paper_tables.py          Orchestrates all tables → paper_outputs/tables/
-scripts/download_zenodo.py            Download pre-built data from Zenodo
-scripts/csv_to_configs.py             Convert zenodo/simulation_configs.csv to JSON
-
-configs/artifacts.yml                 Manifest of all artifacts to build
-cache_nd/                             Cached .joblib artifacts (auto-created by step 1)
-zenodo/                               Pre-built deposit data (see Zenodo section below)
-real-data-bias-analysis/              Scoring results (auto-created by step 2)
-bias-analysis/raw_simulation_results/ Simulation bootstrap CSVs (auto-created by step 3)
+run_datasets.py                       Score all trees on real datasets
+run_simulations.py                    Bias-variance simulation
+nd/                                   Nested dichotomy implementations
+scripts/                              Figure, table, artifact, download, and analysis scripts
+configs/artifacts.yml                 Artifact specifications
+cache_nd/                             Cached embedding artifacts
+zenodo/                               Downloaded Zenodo archive
+real-data-bias-analysis/              Real-data scoring outputs
+bias-analysis/raw_simulation_results/ Simulation bootstrap outputs
 ```
 
 ## Zenodo
@@ -202,18 +208,7 @@ To convert the LR CSV to JSON:
 python scripts/csv_to_configs.py --output simulation_configs.json
 ```
 
-`zenodo/simulation_configs_dt.csv` is committed as a static artifact; it was generated once from
-the original Postgres simulation DB and is not regenerated as part of this pipeline.
-
-## Using your own data
-
-Drop a CSV in `zenodo/data/` with a `y` column (integer or string class labels) and any number of numeric feature columns. A `split` column (`"train"` / `"test"`) is used if present; otherwise a stratified 70/30 split is applied.
-
-```bash
-python run_datasets.py --datasets my_dataset
-```
-
-Output goes to `real-data-bias-analysis/my_dataset/v_my_dataset_lr_cluster_tables.xlsx`.
+`zenodo/simulation_configs_dt.csv` is committed as a static artifact and is not regenerated as part of this pipeline.
 
 ## Artifacts (cache_nd/)
 
