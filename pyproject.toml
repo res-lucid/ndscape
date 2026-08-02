@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "ndscape"
-version = "0.1.1"
+version = "0.1.2"
 description = "Fit, score, and embed nested-dichotomy (ND) trees for multi-class classification."
 readme = "ndscape/README.md"
 license = "MIT"
@@ -29,7 +29,11 @@ spatial = ["esda>=2.6", "libpysal>=4.10"]
 plot = ["matplotlib>=3.5", "bokeh>=3.0"]
 
 [project.urls]
+Homepage = "https://github.com/res-lucid/ndscape"
 Repository = "https://github.com/res-lucid/ndscape"
+Issues = "https://github.com/res-lucid/ndscape/issues"
+"Interactive maps" = "https://res-lucid.github.io/ndscape-plots/"
+"Data archive" = "https://doi.org/10.5281/zenodo.20456943"
 
 [tool.setuptools.packages.find]
 include = ["ndscape*"]

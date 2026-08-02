@@ -35,7 +35,7 @@ def _get_model(base):
     if isinstance(base, str):
         if base == "lr":
             return LogisticRegression(
-                penalty="l2", solver="newton-cholesky", C=0.1, max_iter=2000
+                solver="newton-cholesky", C=0.1, max_iter=2000
             )
         if base in ("decisiontree", "dt"):
             return DecisionTreeClassifier(

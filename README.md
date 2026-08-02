@@ -1,10 +1,18 @@
 # ndscape: Nested Dichotomy Tree-Space Embedding
 
-`ndscape` embeds nested dichotomy (ND) tree structures using depth-weighted structural tokens and metric MDS. It can be used as a Python package, and this repository also contains the code needed to reproduce the paper outputs.
+[![PyPI](https://img.shields.io/pypi/v/ndscape.svg)](https://pypi.org/project/ndscape/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20456943.svg)](https://doi.org/10.5281/zenodo.20456943)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-An ND represents a multiclass classification problem as a binary tree of class splits.
+A classification model assigns an observation to one of several classes, and when there are more than two, the task becomes a multiclass problem. A nested dichotomy (ND) gives that multiclass problem a visible structure: it arranges the classes in a binary tree and fits a classifier at each split, so the final prediction is built from a sequence of simpler binary decisions.
 
-Archived data and artifacts: doi:10.5281/zenodo.20456943  
+Any binary classifier can be used at the nodes. With probabilistic classifiers, the probability of each class is the product of the branch probabilities along its path from root to leaf. And because the tree records which classes are grouped together, where they separate, and in what order, you can inspect the fitted model and compare its structure with what you already know about the problem.
+
+That structure also matters for prediction. There are (2M−3)!! possible NDs for M classes, each defining a different decomposition of the same classification task, and changing the tree can produce very different fitted models even when the data and binary classifier stay the same. This gives NDs a large, interpretable model space where changes in predictive behaviour can be related directly to changes in structure.
+
+`ndscape` embeds ND tree structures using depth-weighted structural tokens and metric MDS, so structurally similar trees sit close together. It can be used as a Python package, and this repository also contains the code needed to reproduce the paper outputs.
+
+Interactive maps from the paper: [res-lucid.github.io/ndscape-plots](https://res-lucid.github.io/ndscape-plots/)
 
 ## Installation
 
@@ -104,7 +112,7 @@ pytest tests/                  # unit + snapshot tests (fast)
 pytest tests/ -m integration   # integration tests (slow and requires pre-built C=6,7 artifacts)
 ```
 
-The `tests/fixtures/` directory holds MD5 hashes of the tree lists, tokeniser output, and per-dataset scores.
+The `tests/fixtures/` directory holds golden-master fixtures: MD5 hashes for the larger artifacts, and full tree lists and generator outputs for the smaller ones.
 
 ## Datasets
 
@@ -212,7 +220,7 @@ python scripts/csv_to_configs.py --output simulation_configs.json
 
 ## Artifacts (cache_nd/)
 
-The `cache_nd/` directory holds `.joblib` artifacts for C=4 through C=19. All artifacts are tracked via Git LFS (`.gitattributes`) and are also available from Zenodo:
+The `cache_nd/` directory holds `.joblib` artifacts for C=4 through C=19. It is not tracked in git — the artifacts are downloaded from Zenodo into `zenodo/` (tracked with Git LFS, see `.gitattributes`) or rebuilt locally:
 
 ```bash
 python scripts/download_zenodo.py --what artifacts
@@ -226,3 +234,7 @@ python scripts/make_artifacts.py --all
 
 Artifact specs (class count, tree count, seed) are declared in `configs/artifacts.yml`.
 Use `scripts/verify_artifacts.py` to check a built artifact against its spec.
+
+## Citation
+
+Metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it under "Cite this repository". The archived data and artifacts have their own DOI, [10.5281/zenodo.20456943](https://doi.org/10.5281/zenodo.20456943).
