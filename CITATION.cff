@@ -4,7 +4,7 @@ type: software
 title: "Nested-Dichotomy Tree-Space Embedding"
 abstract: >
   Code for scoring nested-dichotomy (ND) tree structures on
-  multi-class datasets, embedding the tree space via metric MDS, and running
+  multiclass datasets, embedding the tree space via metric MDS, and running
   a bias-variance simulation over the space.
 authors:
   - family-names: "Dix-Matthews"
@@ -20,7 +20,7 @@ authors:
 repository-code: "https://github.com/res-lucid/ndscape"
 license: MIT
 doi: "10.5281/zenodo.20456943"
-version: "0.1.2"
+version: "0.1.3"
 date-released: "2026-06-17"
 keywords:
   - nested-dichotomy

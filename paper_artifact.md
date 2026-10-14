@@ -1,6 +1,6 @@
 # Paper artifact guide
 
-Maps each table and figure in the paper to the script that produces it and the output it writes.
+Maps each table and figure in the [paper](https://arxiv.org/abs/2610.18050) to the script that produces it and the output it writes.
 
 ---
 
@@ -12,10 +12,11 @@ If you have downloaded the Zenodo deposit, run:
 python reproduce.py --paper
 ```
 
-This does three things in order:
+This does four things in order:
 1. `scripts/make_dataset_plots.py --cache zenodo --out paper_outputs/figures` — PDF + interactive HTML embedding maps for all 6 datasets, plus `nd_info.json` per dataset
-2. `scripts/make_ablation_summaries.py` — Moran analysis for the tokeniser / BoW / RF ablations → `paper_outputs/ablation_summaries/` (cleaned up after step 3)
-3. `scripts/make_paper_tables.py --all --out paper_outputs/tables` — all LaTeX tables
+2. `scripts/make_simulation_plots.py --out paper_outputs/figures` — simulation bias/variance/depth PDF maps
+3. `scripts/make_ablation_summaries.py` — Moran analysis for the tokeniser / BoW / RF ablations → `paper_outputs/ablation_summaries/` (cleaned up after step 4)
+4. `scripts/make_paper_tables.py --all --out paper_outputs/tables` — all LaTeX tables
 
 Output: `paper_outputs/figures/` and `paper_outputs/tables/`.
 
@@ -101,9 +102,9 @@ Moran's I for accuracy, model variance, and log loss; trustworthiness at 50 neig
 
 **Script:** `python scripts/make_simulation_tables.py --table enrichment --summary-dir zenodo/simulation_scores`
 
-### Higher class count table
+### Appendix Moran's I table
 
-**Script:** `python scripts/make_simulation_tables.py --table high-class --summary-dir zenodo/simulation_scores`
+**Script:** `python scripts/make_simulation_tables.py --table appendix-morans --summary-dir zenodo/simulation_scores`
 
 All tables at once (uses zenodo/ simulation_scores as source):
 

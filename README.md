@@ -10,9 +10,9 @@ Any binary classifier can be used at the nodes. With probabilistic classifiers, 
 
 That structure also matters for prediction. There are (2M−3)!! possible NDs for M classes, each defining a different decomposition of the same classification task, and changing the tree can produce very different fitted models even when the data and binary classifier stay the same. This gives NDs a large, interpretable model space where changes in predictive behaviour can be related directly to changes in structure.
 
-`ndscape` embeds ND tree structures using depth-weighted structural tokens and metric MDS, so structurally similar trees sit close together. It can be used as a Python package, and this repository also contains the code needed to reproduce the paper outputs.
+`ndscape` embeds ND tree structures using depth-weighted structural tokens and metric MDS, so structurally similar trees sit close together. It can be used as a Python package, and this repository also contains the code needed to reproduce the [paper](https://arxiv.org/abs/2610.18050) outputs.
 
-Interactive maps from the paper: [res-lucid.github.io/ndscape-plots](https://res-lucid.github.io/ndscape-plots/)
+Interactive maps from the [paper](https://arxiv.org/abs/2610.18050): [res-lucid.github.io/ndscape-plots](https://res-lucid.github.io/ndscape-plots/)
 
 ## Installation
 
@@ -236,5 +236,7 @@ Artifact specs (class count, tree count, seed) are declared in `configs/artifact
 Use `scripts/verify_artifacts.py` to check a built artifact against its spec.
 
 ## Citation
+
+Dix-Matthews, M., Hodkiewicz, M., & Polpo, A. (2026). ndscape: a structural map of the nested dichotomy space. arXiv:2610.18050 [stat.ME]. https://doi.org/10.48550/arXiv.2610.18050
 
 Metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it under "Cite this repository". The archived data and artifacts have their own DOI, [10.5281/zenodo.20456943](https://doi.org/10.5281/zenodo.20456943).

@@ -165,7 +165,7 @@ def split_analyzer(n_classes):
 def get_model(base):
     if base == "lr":
         return LogisticRegression(
-            penalty="l2", solver="newton-cholesky",
+            solver="newton-cholesky",
             C=getattr(config, "C", 0.1), max_iter=2000,
         )
     if base == "lda":

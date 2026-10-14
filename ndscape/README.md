@@ -1,12 +1,14 @@
 # ndscape
 
-Fit, score, and embed nested-dichotomy (ND) trees for multi-class classification.
+Fit, score, and embed nested-dichotomy (ND) trees for multiclass classification.
 
-A nested dichotomy reduces a C-class problem to a tree of binary splits
+A nested dichotomy reduces an M-class problem to a tree of binary splits
 (e.g. {0,1,2} vs {3,4}, then {0} vs {1,2}, ...). ndscape lets you fit one,
 score it, or place a whole population of candidate trees in a 2-D
 "tree-space" to see how a property (accuracy, variance, ...) varies across
 tree structures.
+
+The method is described in [Dix-Matthews, Hodkiewicz and Polpo (2026)](https://arxiv.org/abs/2610.18050).
 
 ## Install
 
@@ -85,7 +87,7 @@ nds.plot(rows, metric="accuracy", path="tree_space.png")        # static PNG/PDF
 nds.plot_interactive(rows, metric="accuracy", path="tree_space.html")  # pan/zoom/hover
 ```
 
-Both color points by `metric` and mark the best tree with a black x. Needs
+Both colour points by `metric` and mark the best tree with a black x. Needs
 `ndscape[plot]`.
 
 **The embedding is slow to recompute and you want to reuse it.**
