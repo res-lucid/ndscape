@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ndscape"
 dynamic = ["version"]
-description = "Fit, score, and embed nested-dichotomy (ND) trees for multiclass classification."
+description = "Nested dichotomies in Python: fit, score and map nested dichotomy trees for multiclass classification."
 readme = "ndscape/README.md"
 license = "MIT"
 requires-python = ">=3.9"
 authors = [
     {name = "Maxwell Dix-Matthews"},
 ]
-keywords = ["nested-dichotomy", "multiclass", "classification", "scikit-learn"]
+keywords = ["nested-dichotomy", "nested dichotomies", "multiclass", "multiclass classification", "hierarchical classification", "tree embedding", "classification", "scikit-learn"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Intended Audience :: Science/Research",

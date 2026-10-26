@@ -1,6 +1,6 @@
 # ndscape
 
-Fit, score, and embed nested-dichotomy (ND) trees for multiclass classification.
+Nested dichotomies in Python: fit, score and map nested dichotomy (ND) trees for multiclass classification.
 
 A nested dichotomy reduces an M-class problem to a tree of binary splits
 (e.g. {0,1,2} vs {3,4}, then {0} vs {1,2}, ...). ndscape lets you fit one,

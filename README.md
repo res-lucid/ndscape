@@ -1,8 +1,10 @@
-# ndscape: Nested Dichotomy Tree-Space Embedding
+# ndscape: nested dichotomies in Python
 
 [![PyPI](https://img.shields.io/pypi/v/ndscape.svg)](https://pypi.org/project/ndscape/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20456943.svg)](https://doi.org/10.5281/zenodo.20456943)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+`ndscape` is a Python package for nested dichotomies in multiclass classification: it fits and scores nested dichotomy trees and maps the space of possible trees, so that structurally similar trees sit close together.
 
 A classification model assigns an observation to one of several classes, and when there are more than two, the task becomes a multiclass problem. A nested dichotomy (ND) gives that multiclass problem a visible structure: it arranges the classes in a binary tree and fits a classifier at each split, so the final prediction is built from a sequence of simpler binary decisions.
 

@@ -1,7 +1,7 @@
-cff-version: 1.1.0
+cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "Nested-Dichotomy Tree-Space Embedding"
+title: "ndscape: nested dichotomy tree-space embedding"
 abstract: >
   Code for scoring nested-dichotomy (ND) tree structures on
   multiclass datasets, embedding the tree space via metric MDS, and running
@@ -18,14 +18,30 @@ authors:
     orcid: "https://orcid.org/0000-0002-5959-1808"
 
 repository-code: "https://github.com/res-lucid/ndscape"
+url: "https://res-lucid.github.io/ndscape-plots/"
 license: MIT
 doi: "10.5281/zenodo.20456943"
 version: "0.1.3"
 date-released: "2026-06-17"
 keywords:
+  - nested dichotomies
   - nested-dichotomy
+  - multiclass classification
   - tree-space
   - bias-variance
   - MDS
   - spatial-autocorrelation
   - machine-learning
+preferred-citation:
+  type: article
+  title: "ndscape: a structural map of the nested dichotomy space"
+  authors:
+    - family-names: "Dix-Matthews"
+      given-names: "Maxwell"
+    - family-names: "Hodkiewicz"
+      given-names: "Melinda"
+    - family-names: "Polpo"
+      given-names: "Adriano"
+  year: 2026
+  doi: "10.48550/arXiv.2610.18050"
+  url: "https://arxiv.org/abs/2610.18050"
